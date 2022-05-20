@@ -22,9 +22,23 @@ class Volunteer
     volunteers = []
     returned_volunteers.each() do |volunteer|
       name = volunteer.fetch("name")
-      id = volunteer.fecth("id").volunteer_to_compare_id
+      id = volunteer.fetch("id").volunteer_to_compare_id
       volunteers.push(Volunteer.new({:name => name, :project_id => project_id, :id => id}))
     end
     volunteers
+  end
+  def self.clear
+    DB.exec("DELETE FROM volunteers *;")
+  end
+  def self.find(id)
+    volunteers = DB.exec("SELECT * FROM volunteers id = #{id};").first
+    name = volunteers.fetch("name")
+    project_id = volunteers.fetch("procjet_id")
+    id = volunteers.fetch("id").to_i
+    Volunteer.new({:name => name, :procjet_id => procjet_id, :id => id})
+  end
+  def save 
+    result = DB.exec("INSERT INTO volunteers (name, project_id) VALUES ('#{name}','#{procjet_id}') RETURNING id;")
+    @id = result.first().fetch("id").to_i
   end
 end
