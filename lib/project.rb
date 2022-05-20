@@ -1,5 +1,7 @@
 #title
 #name of volunteer
 #id
-class project
+require 'pry'
+class Project
+end
   
