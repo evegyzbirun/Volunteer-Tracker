@@ -4,7 +4,7 @@
 require 'pry'
 attr_reader :id
 attr_accessor :name
-class volunteer
+class Volunteer
 
   def initialize(attributes)
     @name = attributes.fetch(:name)
@@ -12,6 +12,8 @@ class volunteer
   end
 
 
-  def 
-    
+  def == (volunteer_to_compare)
+    (self.name = volunteer_to_compare.name) && (self.id = volunteer_to_compare.id)
+  end
+
 end
