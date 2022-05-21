@@ -4,7 +4,7 @@
 require 'pry'
 
 class Volunteer
-  attr_reader :id , :project_id
+  attr_reader :id, :project_id
   attr_accessor :name
 
   def initialize(attributes)
@@ -40,5 +40,8 @@ class Volunteer
   def save 
     result = DB.exec("INSERT INTO volunteers (name, project_id) VALUES ('#{name}','#{procjet_id}') RETURNING id;")
     @id = result.first().fetch("id").to_i
+  end
+  def update (attributes)
+    if 
   end
 end
