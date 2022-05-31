@@ -42,6 +42,9 @@ class Volunteer
     @id = result.first().fetch("id").to_i
   end
   def update (attributes)
-    if 
+    @name = name
+    @project_id = procjet_id
+    DB.exec("UPDATE volunteers SET name = '#{@name}', project_id = '#{@procjet_id}' WHERE id = '#{@id}';")
   end
+  
 end
