@@ -41,10 +41,22 @@ class Volunteer
     result = DB.exec("INSERT INTO volunteers (name, project_id) VALUES ('#{name}','#{procjet_id}') RETURNING id;")
     @id = result.first().fetch("id").to_i
   end
-  def update (attributes)
-    @name = name
-    @project_id = procjet_id
-    DB.exec("UPDATE volunteers SET name = '#{@name}', project_id = '#{@procjet_id}' WHERE id = '#{@id}';")
+  def delete
+    DB.exec("DELETE FROM projects_volunteers WHERE volunteer_id = #{@id};")
+    DB.exec("DELETE FROM volunteers WHERE id = #{@id}")
   end
+
+
+  def update(name) #(attributes)
+    #@name = name
+    #@project_id = procjet_id
+    #DB.exec("UPDATE volunteers SET name = '#{@name}', project_id = '#{@procjet_id}' WHERE id = '#{@id}';")
+   
+      @title = title
+      DB.exec("UPDATE volunteers SET name = '#{name}' WHERE id = #{id};")
+    end
+  end
+
+  def procjets
   #def self.find_by_volunteer()
 end
