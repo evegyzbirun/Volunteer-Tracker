@@ -1,7 +1,7 @@
 #name
 #id
 #project id
-require 'pry'
+
 
 class Volunteer
   attr_reader :id, :project_id
@@ -46,5 +46,5 @@ class Volunteer
     @project_id = procjet_id
     DB.exec("UPDATE volunteers SET name = '#{@name}', project_id = '#{@procjet_id}' WHERE id = '#{@id}';")
   end
-  
+  #def self.find_by_volunteer()
 end
