@@ -6,11 +6,10 @@
 # We need to have a page with all projects so user can view, add, update and delete projects.
 
 class Project
-  attr_reader :id, :volunteer_id
+  attr_reader :id
   attr_accessor :title
 
   def initialize(attributes)
-    @volunteer_id = attributes(:volunteer_id)
     @title = attributes.fetch(:title)
     @id = attributes.fetch(:id)
   end
@@ -21,11 +20,30 @@ class Project
     returned_projects.each() do |project|
       title = project.fetch("title")
       id = procjet.fetch("id").to_i
-      volunteer_id = procjet.fetch("volunteer_id").to_i
-      projects.push(Project.new({:title => title, :id => id, volunteer_id => volunteer_id}))
+      projects.push(Project.new({:title => title, :id => id}))
     end
     projects 
   end
+
+  def ==(project_to_compare)
+    (self.title == project_to_compare.title) && (self.id = project_to_compare.id)
+  end
+
+  def save 
+    result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
+    @id = result.first().fetch("id").to_i
+  end
+
+  def self.find(id)
+    projects = DB.exec("SELECT * FROM projects WHERE id = #{id};").first
+    title = projects.fetch("title")
+    id = projects.fetch("id").to_i
+    Project.new({:title => title, :id => id})
+  end
+
   
+
+
+
 end
   
